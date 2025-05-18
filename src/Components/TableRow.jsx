@@ -1,6 +1,20 @@
 import React from 'react'
 import chartup from "../assets/chartup.png";
 import chartdown from "../assets/chartdown.png"
+import styled from 'styled-components';
+
+const Symbol=styled.div`
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    img{
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+    }
+`;
+
+
 
 
 const TableRow=({coin})=>{
@@ -8,10 +22,10 @@ const TableRow=({coin})=>{
 return(
     <tr key={coin.id}> 
                         <td>
-                            <div>
+                            <Symbol>
                                 <img src={image} alt=""/>
                                 <span>{symbol.toUpperCase()}</span>
-                            </div>
+                            </Symbol>
                         </td>
                         <td>{name}</td>
                         {/* //toLocaleString سه تا سه تا ارقام رو جدا میکنه */}
