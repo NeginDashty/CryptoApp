@@ -1,21 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import TableCoin from '../modules/TableCoin';
-import GetCoins from '../../Services/CryptoApi';
+import {GetCoins,SearchCoin} from '../../Services/CryptoApi';
 import {RotatingLines} from "react-loader-spinner"
+import Pagination from '../modules/pagination';
+import Search from '../modules/search';
 
 function HomePage() {
   const [coins, setCoins] = useState([]);
   const [loadding , setLoading]=useState(true);
+  const [page,setPage]=useState(1);
+  const [currency,setCurrency]=useState('usd');
+  const [value,setValue]=useState('');
+  const currencySymbol = currency === 'usd' ? '$' :
+  currency === 'eur' ? '€' :
+  currency === 'jpy' ? '¥' : '$';
+
 
   useEffect(() => {
+    setLoading(true);
     const getData = async () => {
-      const data = await GetCoins();
-      setCoins(data);
-      setLoading(false);
+    try {
+    const data = await GetCoins(page,currency);
+    setCoins(data);
+    setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
     };
     getData();
-  }, []);
+  }, [page,currency]);
+  //یعنی هر وقت پیج تغییر کرد افکت رو دوباره اجرا کن
   
   if (loadding) {
     return(
@@ -39,7 +54,9 @@ function HomePage() {
   }
   return (
     <div>
-      <TableCoin  coins={coins} isloading={loadding} />
+      <Search currency={currency} setCurrency={setCurrency} />
+      <TableCoin  coins={coins} isloading={loadding} currencySymbol={currencySymbol} />
+      <Pagination page={page} setPage={setPage}/>
     </div>
   );
 }

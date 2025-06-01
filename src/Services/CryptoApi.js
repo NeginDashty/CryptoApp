@@ -3,13 +3,13 @@ import axios from "axios";
 const BASE_URL="https://api.coingecko.com/api/v3";
 const APIKEY="CG-HvbigyLWK83GAXJpiMjV64YY";
 
-const Api=()=>{
-    return `${BASE_URL}/coins/markets?vs_currency=usd&order-market_cap_desc&per_page=20&page=1&x_cg_demo_api_key=${APIKEY}`;
+const Api=(page,currency)=>{
+    return `${BASE_URL}/coins/markets?vs_currency=${currency}&order-market_cap_desc&per_page=20&page=${page}&x_cg_demo_api_key=${APIKEY}`;
 };
 
-async function GetCoins() {
+async function GetCoins(page,currency) {
     try {
-        const res=await axios.get(Api());
+        const res=await axios.get(Api(page,currency));
         const data=await res.data;
         return data;
 
@@ -19,4 +19,8 @@ async function GetCoins() {
     }
 };
 
-export default GetCoins;
+const SearchCoin=(query)=>{
+    return ` ${BASE_URL}/search?query=${query}&x_cg_demo_api_key=${APIKEY} `;
+}
+
+export {SearchCoin,GetCoins}
