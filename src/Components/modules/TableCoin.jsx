@@ -50,8 +50,8 @@ const Table=styled.table`
 `;
 
 
-function TableCoin({coins , isloading,currencySymbol}) {
-    console.log(isloading)
+function TableCoin({coins , isloading,currencySymbol,setChart}) {
+    console.log(isloading);
     
   return (
     <Container>
@@ -71,7 +71,7 @@ function TableCoin({coins , isloading,currencySymbol}) {
             <tbody>
                 {coins.map((coin)=>{
                     return(
-                   < TableRow coin={coin} key={coin.id} currencySymbol={currencySymbol}/>
+                   < TableRow coin={coin} key={coin.id} currencySymbol={currencySymbol} setChart={setChart}/>
                 )})}
             </tbody>
         </Table>

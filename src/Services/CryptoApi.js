@@ -21,6 +21,20 @@ async function GetCoins(page,currency) {
 
 const SearchCoin=(query)=>{
     return ` ${BASE_URL}/search?query=${query}&x_cg_demo_api_key=${APIKEY} `;
-}
+};
 
-export {SearchCoin,GetCoins}
+const marketChart=(coin)=>{
+return`${BASE_URL}/coins/${coin}/market_chart/?vs_currency=usd&days=7 `
+};
+
+
+
+
+
+
+
+
+
+
+
+export {SearchCoin,GetCoins,marketChart};

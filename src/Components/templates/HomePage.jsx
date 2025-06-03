@@ -5,6 +5,7 @@ import {GetCoins,SearchCoin} from '../../Services/CryptoApi';
 import {RotatingLines} from "react-loader-spinner"
 import Pagination from '../modules/pagination';
 import Search from '../modules/search';
+import Chart from '../modules/Chart.jsx';
 
 function HomePage() {
   const [coins, setCoins] = useState([]);
@@ -12,6 +13,7 @@ function HomePage() {
   const [page,setPage]=useState(1);
   const [currency,setCurrency]=useState('usd');
   const [value,setValue]=useState('');
+  const [chart,setChart]=useState(null);
   const currencySymbol = currency === 'usd' ? '$' :
   currency === 'eur' ? '€' :
   currency === 'jpy' ? '¥' : '$';
@@ -53,11 +55,15 @@ function HomePage() {
     )
   }
   return (
-    <div>
+    <>
+     <div>
       <Search currency={currency} setCurrency={setCurrency} />
-      <TableCoin  coins={coins} isloading={loadding} currencySymbol={currencySymbol} />
+      <TableCoin  coins={coins} isloading={loadding} currencySymbol={currencySymbol} setChart={setChart}/>
       <Pagination page={page} setPage={setPage}/>
     </div>
+    {/* !!==Boolean== it means if the next state was truthy */}
+    {!!chart && <Chart chart={chart} setChart={setChart}/>}
+    </>
   );
 }
 

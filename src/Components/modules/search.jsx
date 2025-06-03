@@ -34,6 +34,7 @@ const SearchBox=styled.div`
 
 const SearchResult=styled.div`
   position: absolute;
+   display: ${(props) => (props.show ? 'block' : 'none')};
   text-align: center;
   top: 60px;
   width: 300px;
@@ -56,7 +57,6 @@ const SearchResult=styled.div`
     border-bottom: 2px solid #22262e;
   }
 `;
-
 const Img=styled.img`
   width: 25px;
   height: 25px;
@@ -127,7 +127,7 @@ function Search({ currency, setCurrency }) {
           <option value="jpy">JPY</option>
         </select>
 
-     <SearchResult show={coins.length > 0 && value .trim() !== ''}>
+    <SearchResult show={(loading || coins.length > 0) && value.trim() !== ''}>
   {loading ? (
         <RotatingLines
       visible={true}

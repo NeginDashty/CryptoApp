@@ -2,6 +2,7 @@ import React from 'react'
 import chartup from "../assets/chartup.png";
 import chartdown from "../assets/chartdown.png"
 import styled from 'styled-components';
+import { marketChart } from '../Services/CryptoApi';
 
 const Symbol=styled.div`
     display: flex;
@@ -15,14 +16,25 @@ const Symbol=styled.div`
 `;
 
 
-
-
-const TableRow=({coin, currencySymbol})=>{
-    const {name,image,symbol,price_change_percentage_24h,current_price,total_volume,}=coin;
+const TableRow=({coin, currencySymbol,setChart})=>{
+    const {name,image,symbol,price_change_percentage_24h,current_price,total_volume,id}=coin;
+    const showHandler=async()=>{
+        try {
+            const res=await fetch(marketChart(id));
+            const json=await res.json();
+            //setChart inja datash taghir mikone
+            setChart(json);
+            console.log(json);
+            
+        } catch (error) {
+            console.log(error);
+            setChart(null);
+        }        
+    }
 return(
     <tr key={coin.id}> 
                         <td>
-                            <Symbol>
+                            <Symbol onClick={showHandler}>
                                 <img src={image} alt=""/>
                                 <span>{symbol.toUpperCase()}</span>
                             </Symbol>
@@ -38,6 +50,7 @@ return(
                             <img src={price_change_percentage_24h > 0 ? chartup : chartdown} alt={name}/>
                         </td>
                     </tr>
+                    
 );
 };
 
