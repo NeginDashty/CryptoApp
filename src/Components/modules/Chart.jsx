@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Convertdata from '../../Helpers/convertdata';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
+
 
 const Container=styled.div`
      position: fixed;
@@ -38,12 +41,20 @@ const ChartContainer=styled.div`
     background-color: #18181ce6;
     border: 2px solid #404042;
     border-radius: 20px;
-`
+`;
+
+const Garf=styled.div`
+    width: 760px;
+    height: 300px;
+`; 
 
 
 function Chart({chart,setChart}) {
+    const [type,setType]=useState('prices');
     console.log(`Chart data ${chart}`);
-    console.log('convert data fun ',Convertdata(chart));
+
+    const convertedData=Convertdata(chart,type);
+    console.log(convertedData,'converted data');
     const closeModal=()=>{
         setChart(null);
     };
@@ -51,7 +62,18 @@ function Chart({chart,setChart}) {
     <Container>
         <Cross onClick={closeModal}>X</Cross>
         <ChartContainer>
+            <Garf>   
+               <ResponsiveContainer width="100%" height="100%">
+                <LineChart width={400} height={400} data={convertedData}>
+                    <Line type="monotone" dataKey={type} stroke='#3874ff' strokeWidth="2px" />
+                       <CartesianGrid stroke='#404042' />
+                       <YAxis dataKey={type} domain={['auto','auto']} /> {/* اینو درست اینجا بذار */}
+                       <XAxis dataKey={type} />
+                       <Legend/>
+                    </LineChart>
+                </ResponsiveContainer>
 
+            </Garf>
         </ChartContainer>
     </Container>
   )

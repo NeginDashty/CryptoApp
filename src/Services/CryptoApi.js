@@ -24,7 +24,7 @@ const SearchCoin=(query)=>{
 };
 
 const marketChart=(coin)=>{
-return`${BASE_URL}/coins/${coin}/market_chart/?vs_currency=usd&days=7 `
+return`${BASE_URL}/coins/${coin}/market_chart/?vs_currency=usd&days=7 `;
 };
 
 
