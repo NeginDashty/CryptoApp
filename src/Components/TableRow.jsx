@@ -23,8 +23,8 @@ const TableRow=({coin, currencySymbol,setChart})=>{
             const res=await fetch(marketChart(id));
             const json=await res.json();
             //setChart inja datash taghir mikone
-            setChart(json);
-            console.log(json);
+            setChart({...json,coin });
+            console.log({...json,coin});
             
         } catch (error) {
             console.log(error);
