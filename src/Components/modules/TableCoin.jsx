@@ -1,8 +1,9 @@
 import React from 'react'
 import chartup from "../../assets/chartup.png";
 import chartdown from "../../assets/chartdown.png"
-import TableRow from '../TableRow'; 
+import TableRow from '../TableRow';
 import styled from "styled-components"
+import { useCrypto } from '../../Context/CryptoContext';
 
 const Container=styled.div`
     display: flex;
@@ -50,8 +51,8 @@ const Table=styled.table`
 `;
 
 
-function TableCoin({coins , isloading,currencySymbol,setChart}) {
-    console.log(isloading);
+function TableCoin() {
+    const {coins,currencySymbol,chart,setChart}=useCrypto();
     
   return (
     <Container>

@@ -1,12 +1,14 @@
+// src/App.js
 import HomePage from "./Components/templates/HomePage";
+import Layout from "./Layout/Layout";
+import { CryptoProvider } from "./Context/CryptoContext";
 
 
 function App() {
   return (
-   <>
-   <h1>Crypto App</h1>
-  <HomePage/>
-   </>
+    <CryptoProvider>
+      <Layout />
+    </CryptoProvider>
   );
 }
 

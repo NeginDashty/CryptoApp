@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Convertdata from '../../Helpers/convertdata';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
+import { useCrypto } from '../../Context/CryptoContext';
 
 
 const Container=styled.div`
@@ -105,9 +105,11 @@ const Details=styled.div`
 //و ست تایپ میکنه ایونت تارگت اینر تکست
 
 
-function Chart({chart,setChart}) {
+function Chart() {
     const [type,setType]=useState('prices');
+    const {chart,setChart}=useCrypto();
     console.log(chart);
+
 
     const convertedData=Convertdata(chart,type);
     const closeModal=()=>{
